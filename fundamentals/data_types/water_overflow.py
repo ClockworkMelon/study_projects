@@ -7,7 +7,6 @@ for _ in range(1, lines + 1):
         capacity += littres
     else:
         print(f'Insufficient capacity!')
-        #continue
 
 print(f'{capacity}')
 
