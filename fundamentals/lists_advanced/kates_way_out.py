@@ -10,67 +10,87 @@
 # Note: If there are two or more ways out, she always chooses the longest one.
 # •	Otherwise, print: "Kate cannot get out".
 
-rows = int(input())
-row = []
+def labyrinth(rows):
+    """
+    :param rows: RECEIVES STRING
+    :return: LIST OF STRINGS - We'll use as a matrix
+    :example:   ['#######',
+                 '###  K#',
+                 '#######',
+                 '##### #',
+                 '## ####']
+    """
+    maze_rows_accumulator = []
+    for i in range(rows):
+        row_count = input()
+        maze_rows_accumulator.append(row_count)
+    return maze_rows_accumulator
 
-for i in range(rows):
-    row.append(list(map(str, input())))
-
-paths = []
-start = []
-blocked_row = False
-
-for i in range(1, rows):
-    path = []
-    blocked = 0
-    more_paths_count = 0
-
-    for y in range(len(row[i])):
-        if row[i][y] != "#":
-            if row[i][y].isspace():
-                path.append(i)
-                path.append(y)
-            else:
-                start.append(i)
-                start.append(y)
-        else:
-            blocked += 1
-
-            if blocked == len(row[i]):
-                blocked_row = True
+def kate_index(maze_):
+    idx_col = 0
+    idx_row = 0
+    kate = []
+    found_kate = False
+    for x in maze_:
+        idx_row = maze_.index(x)
+        for i in x:
+            if i == 'k' or i == 'K':
+                found_kate = True
+                idx_col = x.index(i)
                 break
+        if found_kate:
+            kate.append(idx_row)
+            kate.append(idx_col)
+            break
 
-    blocked = 0
+    return kate
 
-    if blocked_row:
-        break
+def is_there_exit(maze_):
+    way_out_ = True
+    blockades = 0
+    for x in maze_:
+        if " " not in x:
+            blockades += 1
+            if blockades == 2:
+                way_out_ = False
+                break
+    return way_out_
 
-    paths.append(path)
+maze = labyrinth(int(input()))
+kate_position = kate_index(maze)
 
-exit_position = []
-add_moves = 0
+def exit_moves(maze_):
+    kates_row = kate_position[0]
+    moves = 1
+    kates_row_spaces = 0
+    furthest_space_from_kate = 0
+    for x in range(kates_row, len(maze_)):
+        for i in range(len(maze_[x])):
+            if maze_[x][i] == " " and 'k' in maze_[x]:
+                moves += 1
+                furthest_space_from_kate = kate_position[1] - i + 1
+                if furthest_space_from_kate < kates_row_spaces:
+                    kates_row_spaces = furthest_space_from_kate
+            elif maze_[x][i] == " " and 'k' not in maze_[x]:
+                if i == furthest_space_from_kate and maze_[x][i] == " ":
+                    moves += 1
+                elif i == furthest_space_from_kate and maze_[x + 1][i] == '#':
+                    if maze_[x][i + 1] == " ":
+                        moves + 1
 
-if blocked_row:
+
+    return moves
+
+
+
+way_out = is_there_exit(maze)
+
+if way_out:
+    exits = exit_moves(maze)
+    print(f'Kate got out in {exits} moves')
+else:
     print(f'Kate cannot get out')
-    exit()
 
-for k in range(len(paths)):
-    if len(paths[k]) > 2:
-        add_moves += (len(paths[k]) // 2) - 1
 
-for k in range(len(paths)):
-    lenght = len(paths[k])
-    if lenght > 2:
-        counter = 1
-        for x in range(lenght - 2):
-            if counter == 1:
-                exit_position.append(paths[k][x + 1])
-            counter += 2
-        lenght -= 2
-    else:
-        if lenght == 2:
-            exit_position.append(paths[k][1])
 
-moves = len(exit_position) + add_moves + 1
 
-print(f'Kate got out in {moves} moves')

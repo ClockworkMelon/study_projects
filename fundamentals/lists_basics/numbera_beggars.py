@@ -1,4 +1,4 @@
-numbers = list(map(int, input().split(", ")))
+numbers = [int(x) for x in input().split(', ')]
 beggars = int(input())
 
 result = []

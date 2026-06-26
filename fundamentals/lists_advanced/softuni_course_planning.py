@@ -22,11 +22,7 @@ while True:
             com_two_index = courses.index(com_two)
             ex_index = courses.index(f"{com_tree}-Exercise")
             com_tree_index = courses.index(com_tree)
-            courses[com_two_index], courses[com_tree_index] = \
-            (
-                courses[com_tree_index],
-                courses[com_two_index]
-            )
+            courses[com_two_index], courses[com_tree_index] = courses[com_tree_index], courses[com_two_index]
             exer = courses.pop(ex_index)
             courses.insert(com_two_index + 1, exer)
         else:

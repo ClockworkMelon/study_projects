@@ -11,6 +11,6 @@ for _ in range(shuffles):
         new_deck.append(left[i])
         new_deck.append(right[i])
 
-    cards = new_deck
+    cards = new_deck.copy()
 
 print(cards)
