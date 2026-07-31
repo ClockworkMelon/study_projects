@@ -217,3 +217,4 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 fundamentals/text_processing/lqlq.py
+.idea/study_projects.iml
