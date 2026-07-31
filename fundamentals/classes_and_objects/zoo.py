@@ -19,11 +19,11 @@ class Zoo:
         total_animals = len(self.mammals) + len(self.birds) + len(self.fishes)
         output = ''
         if species == 'mammal':
-            output = f'Mammals in {self.name}:{", ".join(self.mammals)}\nTotal animals: {total_animals}'
+            output = f'Mammals in {self.name}: {", ".join(self.mammals)}\nTotal animals: {total_animals}'
         elif species == 'fish':
-            output = f'Fishes in {self.name}:{", ".join(self.fishes)}\nTotal animals: {total_animals}'
+            output = f'Fishes in {self.name}: {", ".join(self.fishes)}\nTotal animals: {total_animals}'
         elif species == 'bird':
-            output = f'Birds in {self.name}:{", ".join(self.birds)}\nTotal animals: {total_animals}'
+            output = f'Birds in {self.name}: {", ".join(self.birds)}\nTotal animals: {total_animals}'
         return output
 
 zoo_name = input()
@@ -36,7 +36,7 @@ for row in range(rows):
 
 get_mammal_info = input()
 
-zoo.get_info(get_mammal_info)
+print(f'{zoo.get_info(get_mammal_info)}')
 
 
 
